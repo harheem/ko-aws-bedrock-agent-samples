@@ -1,6 +1,10 @@
 # Amazon Bedrock 에이전트 샘플 (한국어)
 
 AWS Bedrock 에이전트를 활용한 다양한 AI 애플리케이션 구축 예제 모음입니다.
+아래 레포지토리의 자료를 한국어로 번역하였습니다.
+- https://github.com/aws-samples/text-to-sql-bedrock-workshop
+- https://github.com/aws-samples/amazon-bedrock-samples
+
 ## 프로젝트 구조
 ### action-group/
 지식 베이스와 액션 그룹이 통합된 레스토랑 예약 에이전트
