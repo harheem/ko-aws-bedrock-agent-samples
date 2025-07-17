@@ -92,18 +92,23 @@ IAM으로 이동한 후 위에서 확인한 역할 이름을 선택합니다.
 정책 이름을 입력하고 정책을 생성합니다.
 
 ### SageMaker AI Studio
+<img width="1883" height="806" alt="image" src="https://github.com/user-attachments/assets/2684f259-309d-4934-a4a7-5f5059296b1f" />
 
-- 노트북 인스턴스 유형: ml.t3.medium
-- 플랫폼 식별자: Amazone Linux 2, Jupyter Lab 4
+JupyterLab을 클릭한 후 스페이스를 생성합니다.
+<img width="870" height="429" alt="image" src="https://github.com/user-attachments/assets/c48bb86d-abe6-4f61-be51-ea9d835f4305" />
 
+- 노트북 인스턴스: `ml.t3.medium`
+- 이미지: `Sagemaker Distribution 3.2.0`
 
+[Run Space]를 클릭한 후 JupyterLab에 접속합니다.
 
 ## GitHub 저장소에서 코드 샘플 다운로드
-다음 코드를 사용하여 실습 코드를 다운로드 받으세요.
+터미널을 클릭한 후, 다음 코드를 사용하여 실습 코드를 다운로드 받으세요.
+<img width="1247" height="700" alt="image" src="https://github.com/user-attachments/assets/fa2a53d5-806b-4853-9025-d6d225e7fe0d" />
+
 
 ```bash
 git clone https://github.com/harheem/ko-aws-bedrock-agent-samples.git
-mv ko-aws-bedrock-agent-samples/ SageMaker/
 ```
 
 
