@@ -120,8 +120,8 @@ chmod +x build_boto3_layer.sh
 ./build_boto3_layer.sh
 ```
 
-성공적으로 완료되면 `cloudformation/layers` 폴더 내에 `boto3.zip` 파일이 생성된 것을 확인할 수 있습니다.
-<img width="343" height="212" alt="Run" src="https://github.com/user-attachments/assets/d289d1c3-23be-4951-8531-d2f03b3d5558" />
+- 성공적으로 완료되면 `cloudformation/layers` 폴더 내에 `boto3.zip` 파일이 생성된 것을 확인할 수 있습니다.
+	<img width="343" height="212" alt="Run" src="https://github.com/user-attachments/assets/d289d1c3-23be-4951-8531-d2f03b3d5558" />
 
 2. S3 버킷 생성 및 파일 업로드
 - 배포에 필요한 파일을 담을 S3 버킷을 생성하고, 방금 만든 boto3.zip 파일을 업로드합니다.
