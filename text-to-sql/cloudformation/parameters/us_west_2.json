@@ -1,8 +1,0 @@
-{
-    "Parameters": {
-        "DBPassword": "gsneotek",
-        "DBUser": "gsneotek",
-        "LayersBucket": "text-to-sql-agent-workshop",
-        "Boto3LayerS3ObjKey": "boto3.zip"
-    }
-}
