@@ -54,6 +54,7 @@ IAM으로 이동한 후 위에서 확인한 역할 이름을 선택합니다.
 				"s3:*",
 				"glue:*",
 				"athena:*",
+				"cloudformation:*",
 				"iam:*",
 				"iam:GenerateCredentialReport",
 				"iam:UpdateAccountName",
