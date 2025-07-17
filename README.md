@@ -21,22 +21,22 @@ Amazon Bedrock으로 이동하여 모댈 권한을 설정합니다.
 
 
 
-### SageMaker Studio
-<img width="1662" height="403" alt="image" src="https://github.com/user-attachments/assets/f7726e16-026d-4506-a8ee-69a0ab17476b" />
-이 실습은 Amazon SageMaker AI의 Notebooks에서 실행하는 것을 권장드립니다.
+### SageMaker AI 도메인 생성
+이 실습은 Amazon SageMaker AI Studio에서 진행하는 것을 기반으로 만들어졌습니다.
+<img width="1886" height="619" alt="image" src="https://github.com/user-attachments/assets/2f99fed6-12f3-4baf-9078-069721187992" />
 
-- 노트북 인스턴스 유형: ml.t3.medium
-- 플랫폼 식별자: Amazone Linux 2, Jupyter Lab 4
+생성된 도메인의 기본 실행 역할 이름을 기억합니다.
+
+ex) `arn:aws:iam::626635425893:role/service-role/AmazonSageMaker-ExecutionRole-20250717T154828`
 
 ### IAM 정책 설정
+IAM으로 이동한 후 위에서 확인한 역할 이름을 선택합니다.
+<img width="1894" height="598" alt="image" src="https://github.com/user-attachments/assets/9f790b46-7ffe-458e-9ed9-09b425917f0b" />
 
-<img width="509" height="177" alt="image" src="https://github.com/user-attachments/assets/dfd0e388-26d7-46ea-adfb-3ade5452ad73" />
 
-생성한 노트북 인스턴스에서 IAM 역할 ARN을 클릭합니다.
 
-<img width="631" height="232" alt="image" src="https://github.com/user-attachments/assets/9af728ab-546d-4b64-8a72-c5046eae81a8" />
-
-권한 설정 편집에 들어가서 아래의 정책을 적용합니다.
+권한 설정에서 아래 권한을 추가합니다.
+<img width="1599" height="442" alt="image" src="https://github.com/user-attachments/assets/cff3f3a6-737e-4e93-a01d-52430f95197a" />
 
 
 ```json
@@ -87,6 +87,16 @@ Amazon Bedrock으로 이동하여 모댈 권한을 설정합니다.
 	]
 }
 ```
+
+<img width="1880" height="875" alt="image" src="https://github.com/user-attachments/assets/99c64ed9-ddf6-4bda-a67d-731216def7bd" />
+정책 이름을 입력하고 정책을 생성합니다.
+
+### SageMaker AI Studio
+
+- 노트북 인스턴스 유형: ml.t3.medium
+- 플랫폼 식별자: Amazone Linux 2, Jupyter Lab 4
+
+
 
 ## GitHub 저장소에서 코드 샘플 다운로드
 다음 코드를 사용하여 실습 코드를 다운로드 받으세요.
