@@ -101,63 +101,6 @@ ex) `arn:aws:iam::626635425893:role/service-role/AmazonSageMaker-ExecutionRole-2
 git clone https://github.com/harheem/ko-aws-bedrock-agent-samples.git
 ```
 
-### Text-to-SQL 실습을 위한 준비
-text-to-sql 예제를 실행하기 위해서는 CloudFormation을 통해 추가 리소스를 배포해야 합니다. 이 과정은 약 10~20분 정도 소요될 수 있습니다.
-
-1. 빌드 스크립트 실행
-- JupyterLab 터미널에서 아래 명령어를 순서대로 입력하여 필요한 파일을 준비합니다.
-
-```bash
-# 작업 디렉토리로 이동
-cd ko-aws-bedrock-agent-samples/text-to-sql/
-
-# boto3 라이브러리를 압축하기 위한 패키지 설치
-sudo apt-get update
-sudo apt-get install -y zip
-
-# Lambda 레이어 빌드 스크립트 실행 권한 부여 및 실행
-chmod +x build_boto3_layer.sh
-./build_boto3_layer.sh
-```
-
-- 성공적으로 완료되면 `cloudformation/layers` 폴더 내에 `boto3.zip` 파일이 생성된 것을 확인할 수 있습니다.
-	<img width="343" height="212" alt="Run" src="https://github.com/user-attachments/assets/d289d1c3-23be-4951-8531-d2f03b3d5558" />
-
-2. S3 버킷 생성 및 파일 업로드
-- 배포에 필요한 파일을 담을 S3 버킷을 생성하고, 방금 만든 boto3.zip 파일을 업로드합니다.
-- 주의: S3 버킷 이름은 전 세계적으로 고유해야 하므로, text-to-sql-agent-workshop-본인이름-날짜와 같이 자신만의 이름을 사용하세요.
-
-```bash
-# S3 버킷 이름 변수 설정 (자신만의 고유한 이름으로 변경하세요)
-S3_BUCKET_NAME="text-to-sql-agent-workshop-yourname-yyyymmdd"
-
-# S3 버킷 생성
-aws s3 mb s3://${S3_BUCKET_NAME}
-
-# zip 파일을 S3 버킷에 복사
-aws s3 cp cloudformation/layers/boto3.zip s3://${S3_BUCKET_NAME}
-```
-
-3. CloudFormation 스택 배포
-- 위에서 설정한 S3 버킷 이름을 --s3-bucket 파라미터에 정확하게 입력해주세요.
-- `cloudformation/parameters/us_west_2.json` 파일에서 이전에 만든 S3 버킷 이름으로 수정합니다.
-<img width="659" height="315" alt="image" src="https://github.com/user-attachments/assets/b0084066-8ca0-4776-b6f7-8bb270ecf49d" />
-<img width="648" height="180" alt="image" src="https://github.com/user-attachments/assets/c4417d32-c3a9-4d3e-98da-6647fdf20a35" />
-
-- 마지막으로, 아래 명령어를 실행하여 CloudFormation 스택을 배포합니다.
-```bash
-aws cloudformation deploy \
-    --stack-name txt2sql-workshop-stack \
-    --region us-west-2 \
-    --template-file ./cloudformation/sagemaker_studio.yml \
-    --capabilities CAPABILITY_NAMED_IAM \
-    --parameter-overrides file://cloudformation/parameters/us_west_2.json \
-    --s3-bucket ${S3_BUCKET_NAME}
-```
-
-이제 모든 준비가 완료되었습니다! 각 프로젝트 폴더에 있는 Jupyter Notebook(.ipynb) 파일을 열어 실습을 시작하세요.
-
-
 ## 프로젝트 구조
 
 ### action-group/
