@@ -56,32 +56,7 @@ IAM으로 이동한 후 위에서 확인한 역할 이름을 선택합니다.
 				"athena:*",
 				"cloudformation:*",
 				"iam:*",
-				"iam:GenerateCredentialReport",
-				"iam:UpdateAccountName",
-				"iam:SimulateCustomPolicy",
-				"iam:CreateAccountAlias",
-				"iam:GetAccountAuthorizationDetails",
-				"iam:DeleteAccountAlias",
-				"iam:GetCredentialReport",
-				"iam:ListPolicies",
-				"iam:DeleteAccountPasswordPolicy",
-				"iam:ListSAMLProviders",
-				"iam:ListRoles",
-				"iam:UploadCloudFrontPublicKey",
-				"iam:GetContextKeysForCustomPolicy",
-				"iam:UpdateAccountPasswordPolicy",
-				"iam:ListOpenIDConnectProviders",
-				"iam:GetAccountName",
-				"iam:ListUsers",
-				"iam:ListSTSRegionalEndpointsStatus",
-				"iam:DeleteRole",
-				"iam:DeleteRolePolicy",
-				"iam:DetachRolePolicy",
-				"iam:DetachUserPolicy",
-				"iam:DetachGroupPolicy",
-				"iam:AttachRolePolicy",
-				"iam:AttachUserPolicy",
-				"iam:AttachGroupPolicy"
+				"ec2:*"
 			],
 			"Resource": "*"
 		}
@@ -103,7 +78,7 @@ JupyterLab을 클릭한 후 스페이스를 생성합니다.
 
 [Run Space]를 클릭한 후 JupyterLab에 접속합니다.
 
-## GitHub 저장소에서 코드 샘플 다운로드
+### GitHub 저장소에서 코드 샘플 다운로드
 터미널을 클릭한 후, 다음 코드를 사용하여 실습 코드를 다운로드 받으세요.
 <img width="1247" height="700" alt="image" src="https://github.com/user-attachments/assets/fa2a53d5-806b-4853-9025-d6d225e7fe0d" />
 
@@ -111,6 +86,32 @@ JupyterLab을 클릭한 후 스페이스를 생성합니다.
 ```bash
 git clone https://github.com/harheem/ko-aws-bedrock-agent-samples.git
 ```
+
+### Text-to-SQL 실습을 위한 준비
+실습 환경을 구성하기 위해 cloudformation 배포를 진행해야 합니다. 참고로, 템플릿 배포는 최대 20분이 소요될 수 있습니다.
+
+다음 명령어를 순서대로 입력하여 배포를 수행합니다.
+```bash
+sudo apt-get update
+sudo apt-get install -y zip
+
+cd ko-aws-bedrock-agent-samples/text-to-sql/
+
+chmod +x build_boto3_layer.sh
+./build_boto3_layer.sh
+```
+
+성공적으로 수행되면 다음과 같이 폴더에 boto3.zip 파일을 확인할 수 있습니다.
+<img width="343" height="212" alt="Run" src="https://github.com/user-attachments/assets/d289d1c3-23be-4951-8531-d2f03b3d5558" />
+
+이제 이 파일을 s3 버킷에 올려야 합니다.
+
+```bash
+aws s3 mb s3://text-to-sql-agent-workshop
+aws s3 cp cloudformation/layers/boto3.zip s3://text-to-sql-agent-workshop
+```
+
+
 
 
 ## 프로젝트 구조
