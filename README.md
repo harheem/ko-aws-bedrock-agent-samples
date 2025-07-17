@@ -1,44 +1,49 @@
 # Amazon Bedrock 에이전트 샘플 (한국어)
 
-AWS Bedrock 에이전트를 활용한 다양한 AI 애플리케이션 구축 예제 모음입니다.
-아래 레포지토리의 자료를 한국어로 번역하면서 처음 접하는 사용자들도 이해할 수 있게 설명을 추가하였습니다.
+AWS Bedrock 에이전트를 활용하여 다양한 AI 애플리케이션을 구축하는 방법을 소개하는 한국어 예제 모음입니다. 이 저장소는 AWS 공식 샘플을 기반으로, 한국 사용자들이 더 쉽게 이해하고 실습할 수 있도록 상세한 설명과 가이드를 추가했습니다.
 
   - [https://github.com/aws-samples/text-to-sql-bedrock-workshop](https://github.com/aws-samples/text-to-sql-bedrock-workshop)
   - [https://github.com/aws-samples/amazon-bedrock-samples](https://github.com/aws-samples/amazon-bedrock-samples)
 
 
 ## 사전 준비
-이 실습은 미국(오레곤) `us-west-2`에서 진행해야 합니다.
+본격적인 실습에 앞서, 원활한 진행을 위해 아래의 준비 과정을 순서대로 완료해주세요.
+
+### AWS 리전 설정
+이 실습은 AWS 미국 서부(오레곤) us-west-2 리전에서 진행하는 것을 권장합니다. AWS 콘솔 상단에서 리전이 us-west-2로 설정되어 있는지 확인해주세요.
 
 ### 모델 액세스 설정
-Amazon Bedrock으로 이동하여 모델 권한을 설정합니다.
+Amazon Bedrock에서 사용할 기반 모델(Foundation Model)에 대한 접근 권한을 설정해야 합니다.
+
+1. AWS 콘솔에서 Amazon Bedrock 서비스로 이동합니다.
+2. 왼쪽 메뉴 하단의 [모델 액세스(Model access)] 를 클릭합니다.
 <img width="1894" height="885" alt="image" src="https://github.com/user-attachments/assets/1b2a7a3b-b403-49b5-a752-e4cde32a2577" />
+3. [모델 액세스 관리(Manage model access)] 버튼을 누르고, 실습에 사용할 모델들, 특히 Anthropic의 Claude 모델과 Amazon의 Titan 모델을 선택하여 접근을 요청합니다.
 <img width="1878" height="680" alt="image" src="https://github.com/user-attachments/assets/5403b2fe-3be1-4254-9997-f8f19ad1ae4c" />
 
-모든 모델을 선택해도 요금이 과금되지 않습니다.
+> 팁: 모델 접근 권한을 요청하는 것만으로는 비용이 발생하지 않으니, 원활한 실습을 위해 모든 모델의 접근 권한을 요청하는 것을 추천합니다.
 
-다양한 모델 테스트를 위해 체크 박스를 선택하여 모든 모델에 대한 액세스를 요청합니다.
 
 
 
 ### SageMaker AI 도메인 생성
-이 실습은 Amazon SageMaker AI Studio에서 진행하는 것을 기반으로 만들어졌습니다.
+실습은 Amazon SageMaker Studio 환경에서 진행됩니다. Studio를 설정하고 필요한 권한을 부여하는 과정입니다.
+
 <img width="1886" height="619" alt="image" src="https://github.com/user-attachments/assets/2f99fed6-12f3-4baf-9078-069721187992" />
 
-생성된 도메인의 기본 실행 역할 이름을 기억합니다.
+1. AWS 콘솔에서 Amazon SageMaker 서비스로 이동합니다.
+2. 왼쪽 메뉴에서 [도메인(Domain)] 을 클릭하고 [도메인 생성(Create domain)] 버튼을 누릅니다.
+3. 빠른 설정을 위해 [빠른 설치(Quick setup)] 를 선택하여 도메인을 생성합니다.
+4. 생성이 완료되면, 사용자 프로필(User profiles) 목록에서 기본으로 생성된 default-user의 실행 역할(Execution Role) ARN을 복사하여 기록해두세요. 다음 단계에서 권한을 추가할 때 필요합니다.
 
+   
 ex) `arn:aws:iam::626635425893:role/service-role/AmazonSageMaker-ExecutionRole-20250717T154828`
 
 ### IAM 정책 설정
-IAM으로 이동한 후 위에서 확인한 역할 이름을 선택합니다.
-<img width="1894" height="598" alt="image" src="https://github.com/user-attachments/assets/9f790b46-7ffe-458e-9ed9-09b425917f0b" />
-
-
-
-권한 설정에서 아래 권한을 추가합니다.
-<img width="1599" height="442" alt="image" src="https://github.com/user-attachments/assets/cff3f3a6-737e-4e93-a01d-52430f95197a" />
-
-
+1. AWS 콘솔에서 IAM 서비스로 이동합니다.
+2. 왼쪽 메뉴에서 [역할(Roles)] 을 클릭하고, 위 단계에서 기록해 둔 SageMaker 실행 역할을 검색하여 선택합니다.
+3. [권한 추가(Add permissions)] > [인라인 정책 생성(Create inline policy)] 을 선택합니다.
+4. JSON 탭을 선택하고, 아래의 정책을 붙여넣은 후 정책 이름을 지정하여 생성합니다. 이 정책은 Bedrock, Lambda, S3 등 실습에 필요한 서비스에 접근할 권한을 부여합니다.
 ```json
 {
 	"Version": "2012-10-17",
@@ -56,7 +61,9 @@ IAM으로 이동한 후 위에서 확인한 역할 이름을 선택합니다.
 				"athena:*",
 				"cloudformation:*",
 				"iam:*",
-				"ec2:*"
+				"ec2:*",
+				"rds:*",
+				"sagemaker:*"
 			],
 			"Resource": "*"
 		}
@@ -64,19 +71,26 @@ IAM으로 이동한 후 위에서 확인한 역할 이름을 선택합니다.
 }
 ```
 
+<img width="1894" height="598" alt="image" src="https://github.com/user-attachments/assets/9f790b46-7ffe-458e-9ed9-09b425917f0b" />
+
+
 <img width="1880" height="875" alt="image" src="https://github.com/user-attachments/assets/99c64ed9-ddf6-4bda-a67d-731216def7bd" />
-정책 이름을 입력하고 정책을 생성합니다.
+
 
 ### SageMaker AI Studio
 <img width="1883" height="806" alt="image" src="https://github.com/user-attachments/assets/2684f259-309d-4934-a4a7-5f5059296b1f" />
 
-JupyterLab을 클릭한 후 스페이스를 생성합니다.
+- 다시 SageMaker 도메인 화면으로 돌아와 [실행(Launch)] 드롭다운 메뉴에서 [Studio] 를 선택합니다.
+  
+- default-user 프로필에서 [JupyterLab 실행(Run JupyterLab)] 버튼을 클릭하여 스페이스를 생성하고 실행합니다.
+  
+	- 인스턴스 타입: ml.t3.medium (실습에 충분합니다)
+   
+	- 이미지: SageMaker Distribution (최신 버전을 권장합니다)
+
+
 <img width="870" height="429" alt="image" src="https://github.com/user-attachments/assets/c48bb86d-abe6-4f61-be51-ea9d835f4305" />
 
-- 노트북 인스턴스: `ml.t3.medium`
-- 이미지: `Sagemaker Distribution 3.2.0`
-
-[Run Space]를 클릭한 후 JupyterLab에 접속합니다.
 
 ### GitHub 저장소에서 코드 샘플 다운로드
 터미널을 클릭한 후, 다음 코드를 사용하여 실습 코드를 다운로드 받으세요.
@@ -88,30 +102,60 @@ git clone https://github.com/harheem/ko-aws-bedrock-agent-samples.git
 ```
 
 ### Text-to-SQL 실습을 위한 준비
-실습 환경을 구성하기 위해 cloudformation 배포를 진행해야 합니다. 참고로, 템플릿 배포는 최대 20분이 소요될 수 있습니다.
+text-to-sql 예제를 실행하기 위해서는 CloudFormation을 통해 추가 리소스를 배포해야 합니다. 이 과정은 약 10~20분 정도 소요될 수 있습니다.
 
-다음 명령어를 순서대로 입력하여 배포를 수행합니다.
+1. 빌드 스크립트 실행
+- JupyterLab 터미널에서 아래 명령어를 순서대로 입력하여 필요한 파일을 준비합니다.
+
 ```bash
+# 작업 디렉토리로 이동
+cd ko-aws-bedrock-agent-samples/text-to-sql/
+
+# boto3 라이브러리를 압축하기 위한 패키지 설치
 sudo apt-get update
 sudo apt-get install -y zip
 
-cd ko-aws-bedrock-agent-samples/text-to-sql/
-
+# Lambda 레이어 빌드 스크립트 실행 권한 부여 및 실행
 chmod +x build_boto3_layer.sh
 ./build_boto3_layer.sh
 ```
 
-성공적으로 수행되면 다음과 같이 폴더에 boto3.zip 파일을 확인할 수 있습니다.
+성공적으로 완료되면 `cloudformation/layers` 폴더 내에 `boto3.zip` 파일이 생성된 것을 확인할 수 있습니다.
 <img width="343" height="212" alt="Run" src="https://github.com/user-attachments/assets/d289d1c3-23be-4951-8531-d2f03b3d5558" />
 
-이제 이 파일을 s3 버킷에 올려야 합니다.
+2. S3 버킷 생성 및 파일 업로드
+- 배포에 필요한 파일을 담을 S3 버킷을 생성하고, 방금 만든 boto3.zip 파일을 업로드합니다.
+- 주의: S3 버킷 이름은 전 세계적으로 고유해야 하므로, text-to-sql-agent-workshop-본인이름-날짜와 같이 자신만의 이름을 사용하세요.
 
 ```bash
-aws s3 mb s3://text-to-sql-agent-workshop
-aws s3 cp cloudformation/layers/boto3.zip s3://text-to-sql-agent-workshop
+# S3 버킷 이름 변수 설정 (자신만의 고유한 이름으로 변경하세요)
+S3_BUCKET_NAME="text-to-sql-agent-workshop-yourname-yyyymmdd"
+
+# S3 버킷 생성
+aws s3 mb s3://${S3_BUCKET_NAME}
+
+# zip 파일을 S3 버킷에 복사
+aws s3 cp cloudformation/layers/boto3.zip s3://${S3_BUCKET_NAME}
 ```
 
+3. CloudFormation 스택 배포
+- 위에서 설정한 S3 버킷 이름을 --s3-bucket 파라미터에 정확하게 입력해주세요.
+- `cloudformation/parameters/us_west_2.json` 파일에서 이전에 만든 S3 버킷 이름으로 수정합니다.
+<img width="659" height="315" alt="image" src="https://github.com/user-attachments/assets/b0084066-8ca0-4776-b6f7-8bb270ecf49d" />
+<img width="648" height="180" alt="image" src="https://github.com/user-attachments/assets/c4417d32-c3a9-4d3e-98da-6647fdf20a35" />
 
+- 마지막으로, 아래 명령어를 실행하여 CloudFormation 스택을 배포합니다.
+```bash
+aws cloudformation deploy \
+    --stack-name txt2sql-workshop-stack \
+    --region us-west-2 \
+    --template-file ./cloudformation/sagemaker_studio.yml \
+    --capabilities CAPABILITY_NAMED_IAM \
+    --parameter-overrides file://cloudformation/parameters/us_west_2.json \
+    --s3-bucket ${S3_BUCKET_NAME}
+```
+
+이제 모든 준비가 완료되었습니다! 각 프로젝트 폴더에 있는 Jupyter Notebook(.ipynb) 파일을 열어 실습을 시작하세요.
 
 
 ## 프로젝트 구조
