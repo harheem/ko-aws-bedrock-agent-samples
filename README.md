@@ -6,12 +6,64 @@ AWS Bedrock 에이전트를 활용한 다양한 AI 애플리케이션 구축 예
   - [https://github.com/aws-samples/text-to-sql-bedrock-workshop](https://github.com/aws-samples/text-to-sql-bedrock-workshop)
   - [https://github.com/aws-samples/amazon-bedrock-samples](https://github.com/aws-samples/amazon-bedrock-samples)
 
-## SageMaker Studio
+## 사전 준비
+
+### SageMaker Studio
 <img width="1662" height="403" alt="image" src="https://github.com/user-attachments/assets/f7726e16-026d-4506-a8ee-69a0ab17476b" />
 이 실습은 Amazon SageMaker AI의 Notebooks에서 실행하는 것을 권장드립니다.
 
 - 노트북 인스턴스 유형: ml.t3.medium
 - 플랫폼 식별자: Amazone Linux 2, Jupyter Lab 4
+
+### IAM 정책
+```json
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "OtherServices",
+			"Effect": "Allow",
+			"Action": [
+				"dynamodb:*",
+				"bedrock:*",
+				"aoss:*",
+				"lambda:*",
+				"s3:*",
+				"glue:*",
+				"athena:*",
+				"iam:*",
+				"iam:GenerateCredentialReport",
+				"iam:UpdateAccountName",
+				"iam:SimulateCustomPolicy",
+				"iam:CreateAccountAlias",
+				"iam:GetAccountAuthorizationDetails",
+				"iam:DeleteAccountAlias",
+				"iam:GetCredentialReport",
+				"iam:ListPolicies",
+				"iam:DeleteAccountPasswordPolicy",
+				"iam:ListSAMLProviders",
+				"iam:ListRoles",
+				"iam:UploadCloudFrontPublicKey",
+				"iam:GetContextKeysForCustomPolicy",
+				"iam:UpdateAccountPasswordPolicy",
+				"iam:ListOpenIDConnectProviders",
+				"iam:GetAccountName",
+				"iam:ListUsers",
+				"iam:ListSTSRegionalEndpointsStatus",
+				"iam:DeleteRole",
+				"iam:DeleteRolePolicy",
+				"iam:DetachRolePolicy",
+				"iam:DetachUserPolicy",
+				"iam:DetachGroupPolicy",
+				"iam:AttachRolePolicy",
+				"iam:AttachUserPolicy",
+				"iam:AttachGroupPolicy"
+			],
+			"Resource": "*"
+		}
+	]
+}
+```
 
 
 ## 프로젝트 구조
