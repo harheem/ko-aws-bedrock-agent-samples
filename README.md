@@ -11,7 +11,7 @@ AWS Bedrock 에이전트를 활용한 다양한 AI 애플리케이션 구축 예
 이 실습은 미국(오레곤) `us-west-2`에서 진행해야 합니다.
 
 ### 모델 액세스 설정
-Amazon Bedrock으로 이동하여 모댈 권한을 설정합니다.
+Amazon Bedrock으로 이동하여 모델 권한을 설정합니다.
 <img width="1894" height="885" alt="image" src="https://github.com/user-attachments/assets/1b2a7a3b-b403-49b5-a752-e4cde32a2577" />
 <img width="1878" height="680" alt="image" src="https://github.com/user-attachments/assets/5403b2fe-3be1-4254-9997-f8f19ad1ae4c" />
 
