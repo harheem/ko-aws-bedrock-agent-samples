@@ -18,9 +18,11 @@ AWS Bedrock 에이전트를 활용한 다양한 AI 애플리케이션 구축 예
 ### IAM 정책 설정
 
 <img width="509" height="177" alt="image" src="https://github.com/user-attachments/assets/dfd0e388-26d7-46ea-adfb-3ade5452ad73" />
+
 생성한 노트북 인스턴스에서 IAM 역할 ARN을 클릭합니다.
 
 <img width="631" height="232" alt="image" src="https://github.com/user-attachments/assets/9af728ab-546d-4b64-8a72-c5046eae81a8" />
+
 권한 설정 편집에 들어가서 아래의 정책을 적용합니다.
 
 
