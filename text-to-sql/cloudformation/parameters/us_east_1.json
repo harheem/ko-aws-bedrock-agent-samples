@@ -1,8 +1,0 @@
-{
-    "Parameters": {
-        "DBPassword": "",
-        "DBUser": "",
-        "LayersBucket": "",
-        "Boto3LayerS3ObjKey": "boto3.zip"
-    }
-}
