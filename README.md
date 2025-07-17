@@ -6,7 +6,20 @@ AWS Bedrock 에이전트를 활용한 다양한 AI 애플리케이션 구축 예
   - [https://github.com/aws-samples/text-to-sql-bedrock-workshop](https://github.com/aws-samples/text-to-sql-bedrock-workshop)
   - [https://github.com/aws-samples/amazon-bedrock-samples](https://github.com/aws-samples/amazon-bedrock-samples)
 
+
 ## 사전 준비
+이 실습은 미국(오레곤) `us-west-2`에서 진행해야 합니다.
+
+### 모델 액세스 설정
+Amazon Bedrock으로 이동하여 모댈 권한을 설정합니다.
+<img width="1894" height="885" alt="image" src="https://github.com/user-attachments/assets/1b2a7a3b-b403-49b5-a752-e4cde32a2577" />
+<img width="1878" height="680" alt="image" src="https://github.com/user-attachments/assets/5403b2fe-3be1-4254-9997-f8f19ad1ae4c" />
+
+모든 모델을 선택해도 요금이 과금되지 않습니다.
+
+다양한 모델 테스트를 위해 체크 박스를 선택하여 모든 모델에 대한 액세스를 요청합니다.
+
+
 
 ### SageMaker Studio
 <img width="1662" height="403" alt="image" src="https://github.com/user-attachments/assets/f7726e16-026d-4506-a8ee-69a0ab17476b" />
