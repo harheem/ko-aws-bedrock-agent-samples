@@ -10,7 +10,7 @@ AWS Bedrock 에이전트를 활용하여 다양한 AI 애플리케이션을 구�
 본격적인 실습에 앞서, 원활한 진행을 위해 아래의 준비 과정을 순서대로 완료해주세요.
 
 ### AWS 리전 설정
-이 실습은 AWS 미국 서부(오레곤) us-west-2 리전에서 진행하는 것을 권장합니다. AWS 콘솔 상단에서 리전이 us-west-2로 설정되어 있는지 확인해주세요.
+이 실습은 AWS 미국 버지니아 북부 `us-east-1` 리전에서 진행하는 것을 권장합니다. AWS 콘솔 상단에서 리전이 `us-east-1`로 설정되어 있는지 확인해주세요.
 
 ### 모델 액세스 설정
 Amazon Bedrock에서 사용할 기반 모델(Foundation Model)에 대한 접근 권한을 설정해야 합니다.
@@ -27,23 +27,29 @@ Amazon Bedrock에서 사용할 기반 모델(Foundation Model)에 대한 접근 
 
 
 ### SageMaker AI 도메인 생성
-실습은 Amazon SageMaker Studio 환경에서 진행됩니다. Studio를 설정하고 필요한 권한을 부여하는 과정입니다.
+실습은 Amazon SageMaker AI 노트북 환경에서 진행됩니다. 노트북 인스턴스를 생성하고 필요한 권한을 부여하는 과정입니다.
 
-<img width="1886" height="619" alt="image" src="https://github.com/user-attachments/assets/2f99fed6-12f3-4baf-9078-069721187992" />
+1번 이미지
 
-1. AWS 콘솔에서 Amazon SageMaker 서비스로 이동합니다.
-2. 왼쪽 메뉴에서 [도메인(Domain)] 을 클릭하고 [도메인 생성(Create domain)] 버튼을 누릅니다.
-3. 빠른 설정을 위해 [빠른 설치(Quick setup)] 를 선택하여 도메인을 생성합니다.
-4. 생성이 완료되면, 사용자 프로필(User profiles) 목록에서 기본으로 생성된 default-user의 실행 역할(Execution Role) ARN을 복사하여 기록해두세요. 다음 단계에서 권한을 추가할 때 필요합니다.
+1. AWS 콘솔에서 Amazon SageMaker AI 서비스로 이동합니다.
+2. 왼쪽 메뉴에서 [Notebooks] 를 클릭하고 [노트북 인스턴스 생성] 버튼을 누릅니다.
+3. 인스턴스 이름을 입력한 후 인스턴스를 생성합니다.
+4. 2~3분 정도 기다린 후, 새로 고침 버튼을 클릭하여 인스턴스 상태가 InService로 바뀐 것을 확인합니다.
 
-   
-ex) `arn:aws:iam::626635425893:role/service-role/AmazonSageMaker-ExecutionRole-20250717T154828`
+2번 이미지
+
 
 ### IAM 정책 설정
-1. AWS 콘솔에서 IAM 서비스로 이동합니다.
-2. 왼쪽 메뉴에서 [역할(Roles)] 을 클릭하고, 위 단계에서 기록해 둔 SageMaker 실행 역할을 검색하여 선택합니다.
+
+3번 이미지
+1. 생성된 노트북 인스턴스 이름을 클릭합니다.
+2. 권한 및 암호화 섹션에서 [IAM 역할 ARN]을 클릭합니다.
 3. [권한 추가(Add permissions)] > [인라인 정책 생성(Create inline policy)] 을 선택합니다.
+
+4번 이미지
+
 4. JSON 탭을 선택하고, 아래의 정책을 붙여넣은 후 정책 이름을 지정하여 생성합니다. 이 정책은 Bedrock, Lambda, S3 등 실습에 필요한 서비스에 접근할 권한을 부여합니다.
+
 ```json
 {
 	"Version": "2012-10-17",
@@ -71,35 +77,29 @@ ex) `arn:aws:iam::626635425893:role/service-role/AmazonSageMaker-ExecutionRole-2
 }
 ```
 
-<img width="1894" height="598" alt="image" src="https://github.com/user-attachments/assets/9f790b46-7ffe-458e-9ed9-09b425917f0b" />
 
-
-<img width="1880" height="875" alt="image" src="https://github.com/user-attachments/assets/99c64ed9-ddf6-4bda-a67d-731216def7bd" />
-
-
-### SageMaker AI Studio
-<img width="1883" height="806" alt="image" src="https://github.com/user-attachments/assets/2684f259-309d-4934-a4a7-5f5059296b1f" />
-
-- 다시 SageMaker 도메인 화면으로 돌아와 [실행(Launch)] 드롭다운 메뉴에서 [Studio] 를 선택합니다.
+- 다시 생성한 노트북 인스턴스 설정 화면으로 돌아와 [JupyterLab 열기(Open JupyterLab)] 버튼을 클릭합니다.
   
-- default-user 프로필에서 [JupyterLab 실행(Run JupyterLab)] 버튼을 클릭하여 스페이스를 생성하고 실행합니다.
-  
-	- 인스턴스 타입: ml.t3.medium (실습에 충분합니다)
-   
-	- 이미지: SageMaker Distribution (최신 버전을 권장합니다)
+5번 이미지
 
+- Other의 첫 번째 항목인 Terminal을 클릭하여 터미널에 진입합니다.
 
-<img width="870" height="429" alt="image" src="https://github.com/user-attachments/assets/c48bb86d-abe6-4f61-be51-ea9d835f4305" />
+6번 이미지
 
-
-### GitHub 저장소에서 코드 샘플 다운로드
-터미널을 클릭한 후, 다음 코드를 사용하여 실습 코드를 다운로드 받으세요.
-<img width="1247" height="700" alt="image" src="https://github.com/user-attachments/assets/fa2a53d5-806b-4853-9025-d6d225e7fe0d" />
-
-
+- 실습에 사용할 코드를 다운받기 위해 다음 명령어를 순서대로 입력합니다.
 ```bash
+cd SageMaker/
 git clone https://github.com/harheem/ko-aws-bedrock-agent-samples.git
 ```
+
+- 코드가 성공적으로 다운되면 아래 이미지처럼 디렉토리에서 `ko-aws-bedrock-agent-samples` 폴더를 확인할 수 있습니다.
+
+7번 이미지
+
+- 이제 실습을 시작할 준비가 되었습니다!
+
+8번 이미지
+
 
 ## 프로젝트 구조
 
