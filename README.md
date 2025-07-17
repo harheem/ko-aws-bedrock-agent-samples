@@ -75,6 +75,14 @@ AWS Bedrock 에이전트를 활용한 다양한 AI 애플리케이션 구축 예
 }
 ```
 
+## GitHub 저장소에서 코드 샘플 다운로드
+다음 코드를 사용하여 실습 코드를 다운로드 받으세요.
+
+```bash
+git clone https://github.com/harheem/ko-aws-bedrock-agent-samples.git
+mv ko-aws-bedrock-agent-samples/ SageMaker/
+```
+
 
 ## 프로젝트 구조
 
