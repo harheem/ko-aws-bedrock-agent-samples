@@ -29,24 +29,29 @@ Amazon Bedrock에서 사용할 기반 모델(Foundation Model)에 대한 접근 
 ### SageMaker AI 도메인 생성
 실습은 Amazon SageMaker AI 노트북 환경에서 진행됩니다. 노트북 인스턴스를 생성하고 필요한 권한을 부여하는 과정입니다.
 
-1번 이미지
+<img width="1882" height="697" alt="image" src="https://github.com/user-attachments/assets/b0163642-4062-43ae-8165-4293f2a60983" />
+
 
 1. AWS 콘솔에서 Amazon SageMaker AI 서비스로 이동합니다.
 2. 왼쪽 메뉴에서 [Notebooks] 를 클릭하고 [노트북 인스턴스 생성] 버튼을 누릅니다.
 3. 인스턴스 이름을 입력한 후 인스턴스를 생성합니다.
 4. 2~3분 정도 기다린 후, 새로 고침 버튼을 클릭하여 인스턴스 상태가 InService로 바뀐 것을 확인합니다.
 
-2번 이미지
+<img width="1611" height="296" alt="image" src="https://github.com/user-attachments/assets/a0a3dede-5b5e-444f-82cd-6abae08800b8" />
+
+
 
 
 ### IAM 정책 설정
 
-3번 이미지
+<img width="1590" height="693" alt="image" src="https://github.com/user-attachments/assets/7a9a6806-3bf2-4fc0-aa4b-ce12af0a868d" />
+
 1. 생성된 노트북 인스턴스 이름을 클릭합니다.
 2. 권한 및 암호화 섹션에서 [IAM 역할 ARN]을 클릭합니다.
 3. [권한 추가(Add permissions)] > [인라인 정책 생성(Create inline policy)] 을 선택합니다.
 
-4번 이미지
+<img width="1586" height="579" alt="image" src="https://github.com/user-attachments/assets/e1dadcb9-185e-48b4-bc15-ac164c1c4668" />
+
 
 4. JSON 탭을 선택하고, 아래의 정책을 붙여넣은 후 정책 이름을 지정하여 생성합니다. 이 정책은 Bedrock, Lambda, S3 등 실습에 필요한 서비스에 접근할 권한을 부여합니다.
 
@@ -80,11 +85,13 @@ Amazon Bedrock에서 사용할 기반 모델(Foundation Model)에 대한 접근 
 
 - 다시 생성한 노트북 인스턴스 설정 화면으로 돌아와 [JupyterLab 열기(Open JupyterLab)] 버튼을 클릭합니다.
   
-5번 이미지
+<img width="1586" height="696" alt="image" src="https://github.com/user-attachments/assets/4d466a55-16b8-42a8-9a34-a88245f94413" />
+
 
 - Other의 첫 번째 항목인 Terminal을 클릭하여 터미널에 진입합니다.
 
-6번 이미지
+<img width="1309" height="738" alt="image" src="https://github.com/user-attachments/assets/244b3d9b-80c3-4a21-8a01-fe324287804f" />
+
 
 - 실습에 사용할 코드를 다운받기 위해 다음 명령어를 순서대로 입력합니다.
 ```bash
@@ -94,11 +101,13 @@ git clone https://github.com/harheem/ko-aws-bedrock-agent-samples.git
 
 - 코드가 성공적으로 다운되면 아래 이미지처럼 디렉토리에서 `ko-aws-bedrock-agent-samples` 폴더를 확인할 수 있습니다.
 
-7번 이미지
+<img width="858" height="307" alt="image" src="https://github.com/user-attachments/assets/2cdab695-df90-4e03-a1c6-be73667de87e" />
 
-- 이제 실습을 시작할 준비가 되었습니다!
 
-8번 이미지
+- 이제 실습을 시작할 준비가 되었습니다! 노트북 파일(.ipynb)을 열고 conda_python3을 선택하여 실습을 진행해주세요.
+
+<img width="716" height="320" alt="image" src="https://github.com/user-attachments/assets/e4774766-2ef4-4c30-a2db-c83d28869d9c" />
+
 
 
 ## 프로젝트 구조
@@ -124,8 +133,8 @@ git clone https://github.com/harheem/ko-aws-bedrock-agent-samples.git
 자연어를 SQL 쿼리로 변환하는 시스템
 
   - **Module 01**: 단일 테이블 최적화 (의료 데이터)
-  - **Module 02**: DIN-SQL과 Few-shot 학습
-  - **Module 03**: RAG를 활용한 Text-to-SQL
+  - **Module 02**: DIN-SQL과 Few-shot 학습 (추가 예정)
+  - **Module 03**: RAG를 활용한 Text-to-SQL (추가 예정)
 
 ## 시작하기
 
