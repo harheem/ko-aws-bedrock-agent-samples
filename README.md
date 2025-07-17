@@ -9,6 +9,7 @@ AWS Bedrock 에이전트를 활용한 다양한 AI 애플리케이션 구축 예
 ## SageMaker Studio
 <img width="1662" height="403" alt="image" src="https://github.com/user-attachments/assets/f7726e16-026d-4506-a8ee-69a0ab17476b" />
 이 실습은 Amazon SageMaker AI의 Notebooks에서 실행하는 것을 권장드립니다.
+
 - 노트북 인스턴스 유형: ml.t3.medium
 - 플랫폼 식별자: Amazone Linux 2, Jupyter Lab 4
 
